@@ -1,9 +1,5 @@
-crypto = require 'crypto'
-
 Consumer = require './consumer'
 Circle = require './circle'
-
-CONSUMER_REPLICAS = 20
 
 class Dispather
   constructor: ->
@@ -45,9 +41,7 @@ class Dispather
 
   assembleConsumer: (event, consumerId, consumer) ->
     @circles[event] ||= new Circle()
-    for i in [1..CONSUMER_REPLICAS]
-      hash = @getHash("#{consumerId}.#{i}")
-      @circles[event].add(hash, consumer)
+    @circles[event].add(consumerId, consumer)
     @circles[event].reload()
 
   refresh: (event) ->
@@ -65,16 +59,11 @@ class Dispather
       return
 
     circle = @circles[event]
-    hash = @getHash(key)
-    consumer = circle.get(hash)
+    consumer = circle.get(key)
     unless consumer
       console.warn "no handler for #{event}" unless consumer
       return
 
     return yield consumer.run(data)
-
-  getHash: (str) ->
-    return crypto.createHash('md5').update(str).digest("hex")
-
 
 module.exports = Dispather
