@@ -1,2 +1,2 @@
 # distributed-dispather
-protocol of a distributed dispather implement, using consistant hashing and client heartbeat
+prototype of a distributed dispather implementation, using consistant hashing and client heartbeat
