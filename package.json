@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/leonchen/distributed-dispather/issues"
   },
-  "homepage": "https://github.com/leonchen/distributed-dispather#readme"
+  "homepage": "https://github.com/leonchen/distributed-dispather#readme",
+  "dependencies": {
+    "bluebird": "^3.1.1"
+  }
 }
